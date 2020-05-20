@@ -1,14 +1,14 @@
 ﻿# Clean Code PHP
 
-## 目录
+## Table of Contents
 
-  1. [简介](#简介)
-  2. [变量](#变量)
-     * [见明知意](#见明知意)
-     * [相同的变量相同含义](#相同变量相同含义)
-     * [有效的命名 (上)](#有效的命名(上))
-     * [有效的命名 (下)](#有效的命名(下))
-     * [有含义的命名](#有含义的命名)
+  1. [Introduction](#introduction)
+  2. [Variables](#variables)
+     * [Use meaningful and pronounceable variable names](#use-meaningful-and-pronounceable-variable-names)
+     * [Use the same vocabulary for the same type of variable](#use-the-same-vocabulary-for-the-same-type-of-variable)
+     * [Use searchable names (part 1)](#use-searchable-names-part-1)
+     * [Use searchable names (part 2)](#use-searchable-names-part-2)
+     * [Use explanatory variables](#use-explanatory-variables)
      * [Avoid nesting too deeply and return early (part 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
      * [Avoid nesting too deeply and return early (part 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
      * [Avoid Mental Mapping](#avoid-mental-mapping)
@@ -46,16 +46,20 @@
   8. [Don’t repeat yourself (DRY)](#dont-repeat-yourself-dry)
   9. [Translations](#translations)
 
-## 简介
+## Introduction
 
-PHP版本的软件工程原则, 改编自 C. Martin 的书
+Software engineering principles, from Robert C. Martin's book
 [*Clean Code*](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882),
-. 本篇不是风格指南.而是一个用于开发可读、可复用并且可重构PHP软件的指南.
+adapted for PHP. This is not a style guide. It's a guide to producing
+readable, reusable, and refactorable software in PHP.
 
-不是所有的原则都需要被遵守，并且少数原则还未被普遍认可。很多指南和其他东西都是一些通过*Clean Code*作者多年积攒下的经验改编而成的。深受 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) 的启发.
+Not every principle herein has to be strictly followed, and even fewer will be universally
+agreed upon. These are guidelines and nothing more, but they are ones codified over many
+years of collective experience by the authors of *Clean Code*.
 
-即使很多开发者依旧使用 PHP5，本篇文章中更多的离职仍然使用 PHP7.1+ 。(译者注：改变是趋势，拥抱变化)
+Inspired from [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript).
 
+Although many developers still use PHP 5, most of the examples in this article only work with PHP 7.1+.
 
 ## Variables
 
