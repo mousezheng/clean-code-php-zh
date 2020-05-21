@@ -4,10 +4,10 @@
 
   1. [简介](#简介)
   2. [变量](#变量)
-     * [见明知意](#见明知意)
-     * [相同的变量相同含义](#相同变量相同含义)
-     * [有效的命名 (上)](#有效的命名(上))
-     * [有效的命名 (下)](#有效的命名(下))
+     * [见名知意](#见名知意)
+     * [相同变量相同含义](#相同变量相同含义)
+     * [可理解的命名 (上)](#可理解的命名(上))
+     * [可理解的命名 (下)](#可理解的命名(下))
      * [有含义的命名](#有含义的命名)
      * [Avoid nesting too deeply and return early (part 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
      * [Avoid nesting too deeply and return early (part 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
@@ -54,30 +54,30 @@ PHP版本的软件工程原则, 改编自 C. Martin 的书
 
 不是所有的原则都需要被遵守，并且少数原则还未被普遍认可。很多指南和其他东西都是一些通过*Clean Code*作者多年积攒下的经验改编而成的。深受 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) 的启发.
 
-即使很多开发者依旧使用 PHP5，本篇文章中更多的离职仍然使用 PHP7.1+ 。(译者注：改变是趋势，拥抱变化)
+即使很多开发者依旧使用 PHP5，本篇文章中更多的离职仍然使用 PHP7.1+ 。(*译者注：改变是趋势，拥抱变化*)
 
 
-## Variables
+## 变量
 
-### Use meaningful and pronounceable variable names
+### 见名知意
 
-**Bad:**
+**反例:**
 
 ```php
 $ymdstr = $moment->format('y-m-d');
 ```
 
-**Good:**
+**正例:**
 
 ```php
 $currentDate = $moment->format('y-m-d');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
-### Use the same vocabulary for the same type of variable
+### 相同变量相同含义
 
-**Bad:**
+**反例：**
 
 ```php
 getUserInfo();
@@ -86,55 +86,52 @@ getUserRecord();
 getUserProfile();
 ```
 
-**Good:**
+**正例：**
 
 ```php
 getUser();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
-### Use searchable names (part 1)
+###  可理解的命名(上)
 
-We will read more code than we will ever write. It's important that the code we do write is
-readable and searchable. By *not* naming variables that end up being meaningful for
-understanding our program, we hurt our readers.
-Make your names searchable.
+更多时候我们在读代码而不是写代码，所以编写可阅读可理解的代码是非常重要的，使用无意义的变量会使项目难以阅读，尽量项目的变量可理解（*译者注：不得不说给一个变量起一个合适的名字真的很难*）。
 
-**Bad:**
+**反例：**
 
 ```php
-// What the heck is 448 for?
+//  448 什么东东?
 $result = $serializer->serialize($data, 448);
 ```
 
-**Good:**
+**正例：**
 
 ```php
 $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 ```
 
-### Use searchable names (part 2)
+### 可理解的命名(上)
 
-**Bad:**
+**反例：**
 
 ```php
 class User
 {
-    // What the heck is 7 for?
+    // 7 是什么东东?
     public $access = 7;
 }
 
-// What the heck is 4 for?
+// 4 是什么东东?
 if ($user->access & 4) {
     // ...
 }
 
-// What's going on here?
+// 为什么要这样处理?
 $user->access ^= 2;
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class User
@@ -144,23 +141,21 @@ class User
     public const ACCESS_UPDATE = 4;
     public const ACCESS_DELETE = 8;
 
-    // User as default can read, create and update something
+    // 使用可读的值
     public $access = self::ACCESS_READ | self::ACCESS_CREATE | self::ACCESS_UPDATE;
 }
 
 if ($user->access & User::ACCESS_UPDATE) {
-    // do edit ...
 }
 
-// Deny access rights to create something
 $user->access ^= User::ACCESS_CREATE;
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use explanatory variables
 
-**Bad:**
+**反例：**
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -183,7 +178,7 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($city, $zipCode);
 ```
 
-**Good:**
+**正例：**
 
 Decrease dependence on regex by naming subpatterns.
 
@@ -195,14 +190,14 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches['city'], $matches['zipCode']);
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid nesting too deeply and return early (part 1)
 
 Too many if-else statements can make your code hard to follow. Explicit is better
 than implicit.
 
-**Bad:**
+**反例：**
 
 ```php
 function isShopOpen($day): bool
@@ -228,7 +223,7 @@ function isShopOpen($day): bool
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function isShopOpen(string $day): bool
@@ -245,11 +240,11 @@ function isShopOpen(string $day): bool
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid nesting too deeply and return early (part 2)
 
-**Bad:**
+**反例：**
 
 ```php
 function fibonacci(int $n)
@@ -270,7 +265,7 @@ function fibonacci(int $n)
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function fibonacci(int $n): int
@@ -287,14 +282,14 @@ function fibonacci(int $n): int
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid Mental Mapping
 
 Don’t force the reader of your code to translate what the variable means.
 Explicit is better than implicit.
 
-**Bad:**
+**反例：**
 
 ```php
 $l = ['Austin', 'New York', 'San Francisco'];
@@ -311,7 +306,7 @@ for ($i = 0; $i < count($l); $i++) {
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 $locations = ['Austin', 'New York', 'San Francisco'];
@@ -326,14 +321,14 @@ foreach ($locations as $location) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't add unneeded context
 
 If your class/object name tells you something, don't repeat that in your
 variable name.
 
-**Bad:**
+**反例：**
 
 ```php
 class Car
@@ -346,7 +341,7 @@ class Car
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class Car
@@ -359,7 +354,7 @@ class Car
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Use default arguments instead of short circuiting or conditionals
 
@@ -386,7 +381,7 @@ function createMicrobrewery($name = null): void
 }
 ```
 
-**Good:**
+**正例：**
 
  You can use [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) and be sure that the `$breweryName` will not be `NULL`.
 
@@ -397,7 +392,7 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Comparison
 
@@ -419,7 +414,7 @@ if ($a != $b) {
 The comparison `$a != $b` returns `FALSE` but in fact it's `TRUE`!
 The string `42` is different than the integer `42`.
 
-**Good:**
+**正例：**
 
 The identical comparison will compare type and value.
 
@@ -434,7 +429,7 @@ if ($a !== $b) {
 
 The comparison `$a !== $b` returns `TRUE`.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 
 ## Functions
@@ -450,7 +445,7 @@ Anything more than that should be consolidated. Usually, if you have more than t
 arguments then your function is trying to do too much. In cases where it's not, most
 of the time a higher-level object will suffice as an argument.
 
-**Bad:**
+**反例：**
 
 ```php
 class Questionnaire
@@ -470,7 +465,7 @@ class Questionnaire
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class Name
@@ -528,11 +523,11 @@ class Questionnaire
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Function names should say what they do
 
-**Bad:**
+**反例：**
 
 ```php
 class Email
@@ -550,7 +545,7 @@ $message = new Email(...);
 $message->handle();
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class Email
@@ -568,7 +563,7 @@ $message = new Email(...);
 $message->send();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Functions should only be one level of abstraction
 
@@ -576,7 +571,7 @@ When you have more than one level of abstraction your function is usually
 doing too much. Splitting up functions leads to reusability and easier
 testing.
 
-**Bad:**
+**反例：**
 
 ```php
 function parseBetterPHPAlternative(string $code): void
@@ -646,7 +641,7 @@ function parseBetterPHPAlternative(string $code): void
 }
 ```
 
-**Good:**
+**正例：**
 
 The best solution is move out the dependencies of `parseBetterPHPAlternative()` function.
 
@@ -706,7 +701,7 @@ class BetterPHPAlternative
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't use flags as function parameters
 
@@ -714,7 +709,7 @@ Flags tell your user that this function does more than one thing. Functions shou
 do one thing. Split out your functions if they are following different code paths
 based on a boolean.
 
-**Bad:**
+**反例：**
 
 ```php
 function createFile(string $name, bool $temp = false): void
@@ -727,7 +722,7 @@ function createFile(string $name, bool $temp = false): void
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function createFile(string $name): void
@@ -741,7 +736,7 @@ function createTempFile(string $name): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid Side Effects
 
@@ -759,7 +754,7 @@ any structure, using mutable data types that can be written to by anything, and 
 centralizing where your side effects occur. If you can do this, you will be happier
 than the vast majority of other programmers.
 
-**Bad:**
+**反例：**
 
 ```php
 // Global variable referenced by following function.
@@ -778,7 +773,7 @@ splitIntoFirstAndLastName();
 var_dump($name); // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function splitIntoFirstAndLastName(string $name): array
@@ -793,7 +788,7 @@ var_dump($name); // 'Ryan McDermott';
 var_dump($newName); // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't write to global functions
 
@@ -803,7 +798,7 @@ production. Let's think about an example: what if you wanted to have configurati
 You could write global function like `config()`, but it could clash with another library
 that tried to do the same thing.
 
-**Bad:**
+**反例：**
 
 ```php
 function config(): array
@@ -814,7 +809,7 @@ function config(): array
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class Configuration
@@ -843,7 +838,7 @@ $configuration = new Configuration([
 
 And now you must use instance of `Configuration` in your application.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Don't use a Singleton pattern
 
@@ -855,7 +850,7 @@ Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern).
 
 There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
 
-**Bad:**
+**反例：**
 
 ```php
 class DBConnection
@@ -882,7 +877,7 @@ class DBConnection
 $singleton = DBConnection::getInstance();
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class DBConnection
@@ -904,11 +899,11 @@ $connection = new DBConnection($dsn);
 
 And now you must use instance of `DBConnection` in your application.
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Encapsulate conditionals
 
-**Bad:**
+**反例：**
 
 ```php
 if ($article->state === 'published') {
@@ -916,7 +911,7 @@ if ($article->state === 'published') {
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 if ($article->isPublished()) {
@@ -924,11 +919,11 @@ if ($article->isPublished()) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid negative conditionals
 
-**Bad:**
+**反例：**
 
 ```php
 function isDOMNodeNotPresent(\DOMNode $node): bool
@@ -942,7 +937,7 @@ if (!isDOMNodeNotPresent($node))
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function isDOMNodePresent(\DOMNode $node): bool
@@ -955,7 +950,7 @@ if (isDOMNodePresent($node)) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid conditionals
 
@@ -968,7 +963,7 @@ one thing. When you have classes and functions that have `if` statements, you
 are telling your user that your function does more than one thing. Remember,
 just do one thing.
 
-**Bad:**
+**反例：**
 
 ```php
 class Airplane
@@ -989,7 +984,7 @@ class Airplane
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 interface Airplane
@@ -1030,7 +1025,7 @@ class Cessna implements Airplane
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid type-checking (part 1)
 
@@ -1039,7 +1034,7 @@ Sometimes you are bitten by this freedom and it becomes tempting to do
 type-checking in your functions. There are many ways to avoid having to do this.
 The first thing to consider is consistent APIs.
 
-**Bad:**
+**反例：**
 
 ```php
 function travelToTexas($vehicle): void
@@ -1052,7 +1047,7 @@ function travelToTexas($vehicle): void
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function travelToTexas(Vehicle $vehicle): void
@@ -1061,7 +1056,7 @@ function travelToTexas(Vehicle $vehicle): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid type-checking (part 2)
 
@@ -1075,7 +1070,7 @@ extra verbiage that the faux "type-safety" you get doesn't make up for the lost
 readability. Keep your PHP clean, write good tests, and have good code reviews.
 Otherwise, do all of that but with PHP strict type declaration or strict mode.
 
-**Bad:**
+**反例：**
 
 ```php
 function combine($val1, $val2): int
@@ -1088,7 +1083,7 @@ function combine($val1, $val2): int
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function combine(int $val1, int $val2): int
@@ -1097,7 +1092,7 @@ function combine(int $val1, int $val2): int
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Remove dead code
 
@@ -1105,7 +1100,7 @@ Dead code is just as bad as duplicate code. There's no reason to keep it in
 your codebase. If it's not being called, get rid of it! It will still be safe
 in your version history if you still need it.
 
-**Bad:**
+**反例：**
 
 ```php
 function oldRequestModule(string $url): void
@@ -1122,7 +1117,7 @@ $request = newRequestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function requestModule(string $url): void
@@ -1134,7 +1129,7 @@ $request = requestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 
 ## Objects and Data Structures
@@ -1155,7 +1150,7 @@ server.
 
 Additionally, this is part of [Open/Closed](#openclosed-principle-ocp) principle.
 
-**Bad:**
+**反例：**
 
 ```php
 class BankAccount
@@ -1169,7 +1164,7 @@ $bankAccount = new BankAccount();
 $bankAccount->balance -= 100;
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class BankAccount
@@ -1210,7 +1205,7 @@ $bankAccount->withdraw($shoesPrice);
 $balance = $bankAccount->getBalance();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Make objects have private/protected members
 
@@ -1222,7 +1217,7 @@ Therefore, use `private` by default and `public/protected` when you need to prov
 
 For more informations you can read the [blog post](http://fabien.potencier.org/pragmatism-over-theory-protected-vs-private.html) on this topic written by [Fabien Potencier](https://github.com/fabpot).
 
-**Bad:**
+**反例：**
 
 ```php
 class Employee
@@ -1239,7 +1234,7 @@ $employee = new Employee('John Doe');
 echo 'Employee name: '.$employee->name; // Employee name: John Doe
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class Employee
@@ -1261,7 +1256,7 @@ $employee = new Employee('John Doe');
 echo 'Employee name: '.$employee->getName(); // Employee name: John Doe
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Classes
 
@@ -1284,7 +1279,7 @@ relationship (Human->Animal vs. User->UserDetails).
 3. You want to make global changes to derived classes by changing a base class.
 (Change the caloric expenditure of all animals when they move).
 
-**Bad:**
+**反例：**
 
 ```php
 class Employee
@@ -1321,7 +1316,7 @@ class EmployeeTaxData extends Employee
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class EmployeeTaxData
@@ -1359,7 +1354,7 @@ class Employee
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Avoid fluent interfaces
 
@@ -1380,7 +1375,7 @@ more often it comes at some costs:
 For more informations you can read the full [blog post](https://ocramius.github.io/blog/fluent-interfaces-are-evil/)
 on this topic written by [Marco Pivetta](https://github.com/Ocramius).
 
-**Bad:**
+**反例：**
 
 ```php
 class Car
@@ -1426,7 +1421,7 @@ $car = (new Car())
   ->dump();
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class Car
@@ -1463,7 +1458,7 @@ $car->setModel('F-150');
 $car->dump();
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Prefer final classes
 
@@ -1479,7 +1474,7 @@ The only condition is that your class should implement an interface and no other
 
 For more informations you can read [the blog post](https://ocramius.github.io/blog/when-to-declare-classes-final/) on this topic written by [Marco Pivetta (Ocramius)](https://ocramius.github.io/).
 
-**Bad:**
+**反例：**
 
 ```php
 final class Car
@@ -1501,7 +1496,7 @@ final class Car
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 interface Vehicle
@@ -1531,7 +1526,7 @@ final class Car implements Vehicle
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## SOLID
 
@@ -1554,7 +1549,7 @@ It's important because if too much functionality is in one class and you modify 
 it can be difficult to understand how that will affect other dependent modules in
 your codebase.
 
-**Bad:**
+**反例：**
 
 ```php
 class UserSettings
@@ -1580,7 +1575,7 @@ class UserSettings
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 class UserAuth
@@ -1618,7 +1613,7 @@ class UserSettings
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Open/Closed Principle (OCP)
 
@@ -1627,7 +1622,7 @@ etc.) should be open for extension, but closed for modification." What does that
 mean though? This principle basically states that you should allow users to
 add new functionalities without changing existing code.
 
-**Bad:**
+**反例：**
 
 ```php
 abstract class Adapter
@@ -1692,7 +1687,7 @@ class HttpRequester
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 interface Adapter
@@ -1732,7 +1727,7 @@ class HttpRequester
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Liskov Substitution Principle (LSP)
 
@@ -1749,7 +1744,7 @@ classic Square-Rectangle example. Mathematically, a square is a rectangle, but
 if you model it using the "is-a" relationship via inheritance, you quickly
 get into trouble.
 
-**Bad:**
+**反例：**
 
 ```php
 class Rectangle
@@ -1802,7 +1797,7 @@ foreach ($rectangles as $rectangle) {
 }
 ```
 
-**Good:**
+**正例：**
 
 The best way is separate the quadrangles and allocation of a more general subtype for both shapes.
 
@@ -1860,7 +1855,7 @@ foreach ($shapes as $shape) {
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Interface Segregation Principle (ISP)
 
@@ -1872,7 +1867,7 @@ classes that require large settings objects. Not requiring clients to set up
 huge amounts of options is beneficial, because most of the time they won't need
 all of the settings. Making them optional helps prevent having a "fat interface".
 
-**Bad:**
+**反例：**
 
 ```php
 interface Employee
@@ -1909,7 +1904,7 @@ class RobotEmployee implements Employee
 }
 ```
 
-**Good:**
+**正例：**
 
 Not every worker is an employee, but every employee is a worker.
 
@@ -1951,7 +1946,7 @@ class RobotEmployee implements Workable
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ### Dependency Inversion Principle (DIP)
 
@@ -1968,7 +1963,7 @@ It can accomplish this through DI. A huge benefit of this is that it reduces
 the coupling between modules. Coupling is a very bad development pattern because
 it makes your code hard to refactor.
 
-**Bad:**
+**反例：**
 
 ```php
 class Employee
@@ -2003,7 +1998,7 @@ class Manager
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 interface Employee
@@ -2043,7 +2038,7 @@ class Manager
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Don’t repeat yourself (DRY)
 
@@ -2070,7 +2065,7 @@ worse than duplicate code, so be careful! Having said this, if you can make
 a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
 updating multiple places any time you want to change one thing.
 
-**Bad:**
+**反例：**
 
 ```php
 function showDeveloperList(array $developers): void
@@ -2106,7 +2101,7 @@ function showManagerList(array $managers): void
 }
 ```
 
-**Good:**
+**正例：**
 
 ```php
 function showList(array $employees): void
@@ -2143,7 +2138,7 @@ function showList(array $employees): void
 }
 ```
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
 
 ## Translations
 
@@ -2169,4 +2164,4 @@ This is also available in other languages:
 * :tr: **Turkish:**
    * [anilozmen/clean-code-php](https://github.com/anilozmen/clean-code-php)
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ 返回顶部](#目录)**
