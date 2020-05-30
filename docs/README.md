@@ -9,11 +9,11 @@
      * [可理解的命名 (上)](#可理解的命名(上))
      * [可理解的命名 (下)](#可理解的命名(下))
      * [有含义的命名](#有含义的命名)
-     * [Avoid nesting too deeply and return early (part 1)](#avoid-nesting-too-deeply-and-return-early-part-1)
-     * [Avoid nesting too deeply and return early (part 2)](#avoid-nesting-too-deeply-and-return-early-part-2)
-     * [Avoid Mental Mapping](#avoid-mental-mapping)
-     * [Don't add unneeded context](#dont-add-unneeded-context)
-     * [Use default arguments instead of short circuiting or conditionals](#use-default-arguments-instead-of-short-circuiting-or-conditionals)
+     * [避免嵌套中提前返回(上)](#避免嵌套中提前返回(上))
+     * [避免嵌套中提前返回(下)](#避免嵌套中提前返回(上))
+     * [避免奇怪的映射](#避免奇怪的映射)
+     * [不必要的上下文](#不必要的上下文)
+     * [默认参数避](#默认参数避)
   3. [Comparison](#comparison)
      * [Use identical comparison](#use-identical-comparison)
   4. [Functions](#functions)
@@ -113,7 +113,7 @@ $result = $serializer->serialize($data, 448);
 $json = $serializer->serialize($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 ```
 
-### 可理解的命名(上)
+### 可理解的命名(下)
 
 **反例：**
 
@@ -155,7 +155,7 @@ $user->access ^= User::ACCESS_CREATE;
 
 **[⬆ 返回顶部](#目录)**
 
-### Use explanatory variables
+### 有含义的命名
 
 **反例：**
 
@@ -167,9 +167,9 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches[1], $matches[2]);
 ```
 
-**Not bad:**
+**反例:**
 
-It's better, but we are still heavily dependent on regex.
+此例稍微好点，但是大量使用正则时也会多有不便。
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -182,7 +182,7 @@ saveCityZipCode($city, $zipCode);
 
 **正例：**
 
-Decrease dependence on regex by naming subpatterns.
+通过正则子模式的方式更利于阅读。
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -194,10 +194,9 @@ saveCityZipCode($matches['city'], $matches['zipCode']);
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid nesting too deeply and return early (part 1)
+### 避免嵌套中提前返回(上)
 
-Too many if-else statements can make your code hard to follow. Explicit is better
-than implicit.
+许多 if-else 语句可以使得代码很难再追加，明确会比隐含更理想。
 
 **反例：**
 
@@ -244,7 +243,7 @@ function isShopOpen(string $day): bool
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid nesting too deeply and return early (part 2)
+### 避免嵌套中提前返回(下)
 
 **反例：**
 
@@ -286,10 +285,10 @@ function fibonacci(int $n): int
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid Mental Mapping
+### 避免奇怪的映射
 
-Don’t force the reader of your code to translate what the variable means.
-Explicit is better than implicit.
+
+不要高估读者能够理准确理解代码的含义。明确会比隐含更理想。
 
 **反例：**
 
@@ -325,10 +324,9 @@ foreach ($locations as $location) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't add unneeded context
+### 不必要的上下文
 
-If your class/object name tells you something, don't repeat that in your
-variable name.
+如果 `class/object` 名已经明确背景，不需要在变量名中再次重复。
 
 **反例：**
 
@@ -358,11 +356,11 @@ class Car
 
 **[⬆ 返回顶部](#目录)**
 
-### Use default arguments instead of short circuiting or conditionals
+### 默认参数避
 
-**Not good:**
+**反例:**
 
-This is not good because `$breweryName` can be `NULL`.
+`$breweryName` 允许为 `NULL` ,无法明确 `$breweryName` 类型。
 
 ```php
 function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
@@ -371,9 +369,10 @@ function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**Not bad:**
+**反例:**
 
-This opinion is more understandable than the previous version, but it better controls the value of the variable.
+
+这种写法比更好理解，并且可以更好的控制变量。
 
 ```php
 function createMicrobrewery($name = null): void
@@ -384,6 +383,8 @@ function createMicrobrewery($name = null): void
 ```
 
 **正例：**
+
+可以使用 [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)，明确 `$breweryName` 不允许为 `NULL`
 
  You can use [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) and be sure that the `$breweryName` will not be `NULL`.
 
@@ -400,7 +401,7 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 
 ### Use [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
 
-**Not good:**
+**反例:**
 
 The simple comparison will convert the string in an integer.
 
