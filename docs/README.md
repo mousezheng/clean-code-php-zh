@@ -182,7 +182,7 @@ saveCityZipCode($city, $zipCode);
 
 **正例：**
 
-通过正则子模式的方式更利于阅读。
+通过正则**子模式**的方式更利于阅读。
 
 ```php
 $address = 'One Infinite Loop, Cupertino 95014';
@@ -386,8 +386,6 @@ function createMicrobrewery($name = null): void
 
 可以使用 [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)，明确 `$breweryName` 不允许为 `NULL`
 
- You can use [type hinting](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) and be sure that the `$breweryName` will not be `NULL`.
-
 ```php
 function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 {
@@ -397,29 +395,29 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 
 **[⬆ 返回顶部](#目录)**
 
-## Comparison
+## 比较
 
-### Use [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
+### 使用 [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
 
 **反例:**
 
-The simple comparison will convert the string in an integer.
+ `string` 会被默认转为 `intager`
+
 
 ```php
 $a = '42';
 $b = 42;
 
-if ($a != $b) {
-   // The expression will always pass
+if ($a == $b) {//作者原文有误
+   // 表达式恒为 true
 }
 ```
 
-The comparison `$a != $b` returns `FALSE` but in fact it's `TRUE`!
-The string `42` is different than the integer `42`.
+这个比较 `$a != $b` 返回 `FALSE` 实际上应该是 `TRUE`，`string` 类型的 `42` 与 intager 的 `42` 是不同的。
 
 **正例：**
 
-The identical comparison will compare type and value.
+identical 比较器将会比较类型和值。
 
 ```php
 $a = '42';
@@ -430,7 +428,7 @@ if ($a !== $b) {
 }
 ```
 
-The comparison `$a !== $b` returns `TRUE`.
+ `$a !== $b` 为 `TRUE`.
 
 **[⬆ 返回顶部](#目录)**
 
