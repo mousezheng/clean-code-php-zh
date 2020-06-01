@@ -14,12 +14,12 @@
      * [避免奇怪的映射](#避免奇怪的映射)
      * [不必要的上下文](#不必要的上下文)
      * [默认参数避](#默认参数避)
-  3. [Comparison](#comparison)
-     * [Use identical comparison](#use-identical-comparison)
-  4. [Functions](#functions)
-     * [Function arguments (2 or fewer ideally)](#function-arguments-2-or-fewer-ideally)
-     * [Function names should say what they do](#function-names-should-say-what-they-do)
-     * [Functions should only be one level of abstraction](#functions-should-only-be-one-level-of-abstraction)
+  3. [比较](#比较)
+     * [使用全等](#使用全等)
+  4. [方法](#方法)
+     * [方法参数少于两个](#方法参数少于两个)
+     * [见名知意](#方法见名知意)
+     * [只被一个水平抽象](#只被一个水平抽象)
      * [Don't use flags as function parameters](#dont-use-flags-as-function-parameters)
      * [Avoid Side Effects](#avoid-side-effects)
      * [Don't write to global functions](#dont-write-to-global-functions)
@@ -397,7 +397,9 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 
 ## 比较
 
-### 使用 [identical comparison](http://php.net/manual/en/language.operators.comparison.php)
+### 使用全等
+
+PHP官方有对 [identical comparison](http://php.net/manual/en/language.operators.comparison.php) 的描述
 
 **反例:**
 
@@ -433,18 +435,11 @@ if ($a !== $b) {
 **[⬆ 返回顶部](#目录)**
 
 
-## Functions
+## 方法
 
-### Function arguments (2 or fewer ideally)
+### 方法参数少于两个
 
-Limiting the amount of function parameters is incredibly important because it makes
-testing your function easier. Having more than three leads to a combinatorial explosion
-where you have to test tons of different cases with each separate argument.
-
-Zero arguments is the ideal case. One or two arguments is ok, and three should be avoided.
-Anything more than that should be consolidated. Usually, if you have more than two
-arguments then your function is trying to do too much. In cases where it's not, most
-of the time a higher-level object will suffice as an argument.
+为了使方法更方便测试，所以要限制方法参数个数。如果有超过三个参数，自由组合的情况将会爆炸增长。没有参数是最理想的情况，一个或者两个参数也是可以的，但是避免超过三个。通常，如果超过两个参数方法就需要很多种测试用例，想办法将超出的参数组合起来。大多数时候一个 “高级” 的（higher-level）Object 只会有一个参数。
 
 **反例：**
 
@@ -526,7 +521,9 @@ class Questionnaire
 
 **[⬆ 返回顶部](#目录)**
 
-### Function names should say what they do
+### 方法见名知意
+
+一个方法的名字应该告诉读者，其主要目的做了件什么事。
 
 **反例：**
 
@@ -542,7 +539,7 @@ class Email
 }
 
 $message = new Email(...);
-// What is this? A handle for the message? Are we writing to a file now?
+// 这是什么？ 一个消息的执行？具体执行了什么？
 $message->handle();
 ```
 
@@ -560,17 +557,16 @@ class Email
 }
 
 $message = new Email(...);
-// Clear and obvious
+// 清楚明白的做法
 $message->send();
 ```
 
 **[⬆ 返回顶部](#目录)**
 
-### Functions should only be one level of abstraction
+### 只被一个水平抽象
 
-When you have more than one level of abstraction your function is usually
-doing too much. Splitting up functions leads to reusability and easier
-testing.
+当一个方法超过一个水平的抽象时它做的事太多了。合理水平拆分方法使其可重用并方便测试。
+
 
 **反例：**
 
@@ -600,9 +596,9 @@ function parseBetterPHPAlternative(string $code): void
 }
 ```
 
-**Bad too:**
+**反例：**
 
-We have carried out some of the functionality, but the `parseBetterPHPAlternative()` function is still very complex and not testable.
+我们已经做了一定的功能性拆分，但是 `parseBetterPHPAlternative()` 方法仍然非常复杂并且不利于测试。
 
 ```php
 function tokenize(string $code): array
@@ -644,7 +640,7 @@ function parseBetterPHPAlternative(string $code): void
 
 **正例：**
 
-The best solution is move out the dependencies of `parseBetterPHPAlternative()` function.
+最好的方案是将 `parseBetterPHPAlternative()` 方法单独拆分出去，独立封装。
 
 ```php
 class Tokenizer
