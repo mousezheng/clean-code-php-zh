@@ -20,9 +20,9 @@
      * [方法参数少于两个](#方法参数少于两个)
      * [见名知意](#方法见名知意)
      * [只被一个水平抽象](#只被一个水平抽象)
-     * [Don't use flags as function parameters](#dont-use-flags-as-function-parameters)
-     * [Avoid Side Effects](#avoid-side-effects)
-     * [Don't write to global functions](#dont-write-to-global-functions)
+     * [不使用标志作参数](#不使用标志作参数)
+     * [避免副作用](#避免副作用)
+     * [不用全局函数](#不用全局函数)
      * [Don't use a Singleton pattern](#dont-use-a-singleton-pattern)
      * [Encapsulate conditionals](#encapsulate-conditionals)
      * [Avoid negative conditionals](#avoid-negative-conditionals)
@@ -700,11 +700,9 @@ class BetterPHPAlternative
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't use flags as function parameters
+### 不使用标志作参数
 
-Flags tell your user that this function does more than one thing. Functions should
-do one thing. Split out your functions if they are following different code paths
-based on a boolean.
+标志会让使用者觉得方法做了不止一件事，方法应该做一件事。如果代码是通过boolean做不同的操作，那么就需要做拆分。
 
 **反例：**
 
@@ -735,27 +733,19 @@ function createTempFile(string $name): void
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid Side Effects
+### 避免副作用
 
-A function produces a side effect if it does anything other than take a value in and
-return another value or values. A side effect could be writing to a file, modifying
-some global variable, or accidentally wiring all your money to a stranger.
+如果函数执行其他操作，而不是将一个值带入并返回另一个值或多个值，则会产生副作用。写入一个文件、修改一些全局变量或者不小心把所有钱汇给陌生人都是所谓的副作用。
 
-Now, you do need to have side effects in a program on occasion. Like the previous
-example, you might need to write to a file. What you want to do is to centralize where
-you are doing this. Don't have several functions and classes that write to a particular
-file. Have one service that does it. One and only one.
+要点是要避免常见的陷阱，例如在对象之间共享状态任何结构，使用可以被任何东西写入的可变数据类型，而不是
+集中发生副作用的地方。 
 
-The main point is to avoid common pitfalls like sharing state between objects without
-any structure, using mutable data types that can be written to by anything, and not
-centralizing where your side effects occur. If you can do this, you will be happier
-than the vast majority of other programmers.
 
 **反例：**
 
 ```php
-// Global variable referenced by following function.
-// If we had another function that used this name, now it'd be an array and it could break it.
+// 在下面这个方法中引入一个全局变量
+// 如果我们其他方法使用这个 $name, $name 是个数组并且修改其内容
 $name = 'Ryan McDermott';
 
 function splitIntoFirstAndLastName(): void
@@ -787,7 +777,8 @@ var_dump($newName); // ['Ryan', 'McDermott'];
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't write to global functions
+### 不用全局函数
+
 
 Polluting globals is a bad practice in many languages because you could clash with another
 library and the user of your API would be none-the-wiser until they get an exception in
