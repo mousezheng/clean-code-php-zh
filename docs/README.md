@@ -23,7 +23,7 @@
      * [不使用标志作参数](#不使用标志作参数)
      * [避免副作用](#避免副作用)
      * [不用全局函数](#不用全局函数)
-     * [Don't use a Singleton pattern](#dont-use-a-singleton-pattern)
+     * [不使用单例模式](#不使用单例模式)
      * [Encapsulate conditionals](#encapsulate-conditionals)
      * [Avoid negative conditionals](#avoid-negative-conditionals)
      * [Avoid conditionals](#avoid-conditionals)
@@ -55,7 +55,6 @@ PHP版本的软件工程原则, 改编自 C. Martin 的书
 不是所有的原则都需要被遵守，并且少数原则还未被普遍认可。很多指南和其他东西都是一些通过*Clean Code*作者多年积攒下的经验改编而成的。深受 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript) 的启发.
 
 即使很多开发者依旧使用 PHP5，本篇文章中更多的离职仍然使用 PHP7.1+ 。(*译者注：改变是趋势，拥抱变化*)
-
 
 ## 变量
 
@@ -96,7 +95,7 @@ getUser();
 
 **[⬆ 返回顶部](#目录)**
 
-###  可理解的命名(上)
+### 可理解的命名(上)
 
 更多时候我们在读代码而不是写代码，所以编写可阅读可理解的代码是非常重要的，使用无意义的变量会使项目难以阅读，尽量项目的变量可理解（*译者注：不得不说给一个变量起一个合适的名字真的很难*）。
 
@@ -286,7 +285,6 @@ function fibonacci(int $n): int
 **[⬆ 返回顶部](#目录)**
 
 ### 避免奇怪的映射
-
 
 不要高估读者能够理准确理解代码的含义。明确会比隐含更理想。
 
@@ -740,7 +738,6 @@ function createTempFile(string $name): void
 要点是要避免常见的陷阱，例如在对象之间共享状态任何结构，使用可以被任何东西写入的可变数据类型，而不是
 集中发生副作用的地方。 
 
-
 **反例：**
 
 ```php
@@ -779,12 +776,7 @@ var_dump($newName); // ['Ryan', 'McDermott'];
 
 ### 不用全局函数
 
-
-Polluting globals is a bad practice in many languages because you could clash with another
-library and the user of your API would be none-the-wiser until they get an exception in
-production. Let's think about an example: what if you wanted to have configuration array?
-You could write global function like `config()`, but it could clash with another library
-that tried to do the same thing.
+很多语言里**全局污染**是一个不好的情况，因为这样会与其他库产生冲突，并且使用这样的 API 是非常不明智的，很有可能在生产中产生一些意料之外的状况。思考一个例子，如果香做一个配置数组该干什么？编写一个全局的方法 `config()`,但是这个造成**全局污染**
 
 **反例：**
 
@@ -816,7 +808,7 @@ class Configuration
 }
 ```
 
-Load configuration and create instance of `Configuration` class
+加载配置并且创建一个 `Configuration` 类的实例。
 
 ```php
 $configuration = new Configuration([
@@ -824,19 +816,20 @@ $configuration = new Configuration([
 ]);
 ```
 
-And now you must use instance of `Configuration` in your application.
+并且必须使用 `Configuration` 的实例到应用中。
 
 **[⬆ 返回顶部](#目录)**
 
-### Don't use a Singleton pattern
+### 不使用单例模式
 
-Singleton is an [anti-pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Paraphrased from Brian Button:
- 1. They are generally used as a **global instance**, why is that so bad? Because **you hide the dependencies** of your application in your code, instead of exposing them through the interfaces. Making something global to avoid passing it around is a [code smell](https://en.wikipedia.org/wiki/Code_smell).
- 2. They violate the [single responsibility principle](#single-responsibility-principle-srp): by virtue of the fact that **they control their own creation and lifecycle**.
- 3. They inherently cause code to be tightly [coupled](https://en.wikipedia.org/wiki/Coupling_%28computer_programming%29). This makes faking them out under **test rather difficult** in many cases.
- 4. They carry state around for the lifetime of the application. Another hit to testing since **you can end up with a situation where tests need to be ordered** which is a big no for unit tests. Why? Because each unit test should be independent from the other.
+单例是一个 [反面模式](https://baike.baidu.com/item/%E5%8F%8D%E9%9D%A2%E6%A8%A1%E5%BC%8F/3703771?fr=aladdin).下面是 **Brian Button** 的解释：
 
-There is also very good thoughts by [Misko Hevery](http://misko.hevery.com/about/) about the [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/).
+ 1. 通常使用一个 **全局实例**，为什么这个很糟糕？因为在应用的代码中**隐藏依赖**，实例仅暴漏它们通过某些接口实现。
+ 2. 它们违背了 [单一职责原则](#单一职责原则)：通过**他们控制他们自己的创建和生命周期**。
+ 3. 它们会使得代码 [耦合性](https://baike.baidu.com/item/%E8%80%A6%E5%90%88%E6%80%A7) 更高。它们通过伪装使得**测试更加困难**
+ 4. 他们关心状态在应用程序的整个生命周期中。 **在需要结束的时候，需要通过一个命令**，这个对于测试来说是很不理想的。为什么？因为每个单元测试都应该互相独立。
+
+这里也有许多很好的资料可做参考，作者[Misko Hevery](http://misko.hevery.com/about/) 关于 [root of problem](http://misko.hevery.com/2008/08/25/root-cause-of-singletons/) .
 
 **反例：**
 
@@ -879,13 +872,13 @@ class DBConnection
 }
 ```
 
-Create instance of `DBConnection` class and configure it with [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters).
+创建一个 `DBConnection` 实例并且配置 [DSN](http://php.net/manual/en/pdo.construct.php#refsect1-pdo.construct-parameters)。
 
 ```php
 $connection = new DBConnection($dsn);
 ```
 
-And now you must use instance of `DBConnection` in your application.
+在应用中使用 `DBConnection`
 
 **[⬆ 返回顶部](#目录)**
 
