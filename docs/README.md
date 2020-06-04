@@ -24,11 +24,11 @@
      * [避免副作用](#避免副作用)
      * [不用全局函数](#不用全局函数)
      * [不使用单例模式](#不使用单例模式)
-     * [Encapsulate conditionals](#encapsulate-conditionals)
-     * [Avoid negative conditionals](#avoid-negative-conditionals)
-     * [Avoid conditionals](#avoid-conditionals)
-     * [Avoid type-checking (part 1)](#avoid-type-checking-part-1)
-     * [Avoid type-checking (part 2)](#avoid-type-checking-part-2)
+     * [封装条件](#封装条件)
+     * [避免非条件](#避免非条件)
+     * [避免条件](#避免条件)
+     * [避免类型检查(上)](#避免类型检查(上))
+     * [避免类型检查(下)](#避免类型检查(下))
      * [Remove dead code](#remove-dead-code)
   5. [Objects and Data Structures](#objects-and-data-structures)
      * [Use object encapsulation](#use-object-encapsulation)
@@ -882,7 +882,7 @@ $connection = new DBConnection($dsn);
 
 **[⬆ 返回顶部](#目录)**
 
-### Encapsulate conditionals
+### 封装条件
 
 **反例：**
 
@@ -902,7 +902,7 @@ if ($article->isPublished()) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid negative conditionals
+### 避免非条件
 
 **反例：**
 
@@ -933,16 +933,15 @@ if (isDOMNodePresent($node)) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid conditionals
+### 避免条件
 
-This seems like an impossible task. Upon first hearing this, most people say,
-"how am I supposed to do anything without an `if` statement?" The answer is that
-you can use polymorphism to achieve the same task in many cases. The second
-question is usually, "well that's great but why would I want to do that?" The
-answer is a previous clean code concept we learned: a function should only do
-one thing. When you have classes and functions that have `if` statements, you
-are telling your user that your function does more than one thing. Remember,
-just do one thing.
+这个似乎是个不可能的任务。
+初次听到，很多的人说，“我应该怎么做才能不是使用 `if` 语句？”。
+回答是，可以使用多态在很多方案中实现这些任务。
+问题通常是，“看似大而空，为什么要这样做呢”。
+这个回答是 clean code 中的一个概念，一个方法应该仅仅做一件事。当我们有一个类并且有 `if` 语句方法，应该告诉使用者方法做了不知一件事。
+
+切记 **单一职责（just do one thing）**
 
 **反例：**
 
@@ -1008,12 +1007,9 @@ class Cessna implements Airplane
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid type-checking (part 1)
+### 避免类型检查(上)
 
-PHP is untyped, which means your functions can take any type of argument.
-Sometimes you are bitten by this freedom and it becomes tempting to do
-type-checking in your functions. There are many ways to avoid having to do this.
-The first thing to consider is consistent APIs.
+PHP 是无类型语言，意思就是一个变量可以作为任何类型。有时候会因为这个灵活而困扰，让人很希望在方法中做类型检查。这里有很多方法去避免，第一件事是去考虑一致 APIs。
 
 **反例：**
 
@@ -1039,17 +1035,9 @@ function travelToTexas(Vehicle $vehicle): void
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid type-checking (part 2)
+### 避免类型检查(下)
 
-If you are working with basic primitive values like strings, integers, and arrays,
-and you use PHP 7+ and you can't use polymorphism but you still feel the need to
-type-check, you should consider
-[type declaration](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration)
-or strict mode. It provides you with static typing on top of standard PHP syntax.
-The problem with manually type-checking is that doing it will require so much
-extra verbiage that the faux "type-safety" you get doesn't make up for the lost
-readability. Keep your PHP clean, write good tests, and have good code reviews.
-Otherwise, do all of that but with PHP strict type declaration or strict mode.
+如果你使用基础的原始的数据例如 string、integer 或者 array 等，即使使用 PHP 7+ 并且没使用多态，仍然需要做类型检查。可以考虑 [类型声明](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) 或者严格的模式。它在标准 PHP 基础上提供了静态类型。手动检查类型的话可以做到 “类型安全”，但是这样会做很多的是，造成代码可读性差。保持 PHP 简洁干净，写好的测试，并且做好代码检查。除此以外，尽可能严格的使用 PHP 类型生命或者严格模式。
 
 **反例：**
 
