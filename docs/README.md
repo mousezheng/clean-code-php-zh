@@ -33,9 +33,9 @@
   5. [对象和数据结构](#对象和数据结构)
      * [封装对象](#封装对象)
      * [private/protected](#privateprotected)
-  6. [Classes](#classes)
-     * [Prefer composition over inheritance](#prefer-composition-over-inheritance)
-     * [Avoid fluent interfaces](#avoid-fluent-interfaces)
+  6. [类](#类)
+     * [组合而不是继承](#组合而不是继承)
+     * [避免流式接口](#避免流式接口)
      * [Prefer final classes](#prefer-final-classes)
   7. [SOLID](#solid)
      * [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
@@ -1222,26 +1222,18 @@ echo 'Employee name: '.$employee->getName(); // Employee name: John Doe
 
 **[⬆ 返回顶部](#目录)**
 
-## Classes
+## 类
 
-### Prefer composition over inheritance
+### 组合而不是继承
 
-As stated famously in [*Design Patterns*](https://en.wikipedia.org/wiki/Design_Patterns) by the Gang of Four,
-you should prefer composition over inheritance where you can. There are lots of
-good reasons to use inheritance and lots of good reasons to use composition.
-The main point for this maxim is that if your mind instinctively goes for
-inheritance, try to think if composition could model your problem better. In some
-cases it can.
+Gang of Four 的 [*设计模式*](https://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2117635?fromtitle=%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F&fromid=1212549) 中一个很著名的说法，尽可能使用组合而不是继承。有很多支持继承原因也有很多支持组合原因。
+这句话主要的意思是，如果本能的想使用继承是，尝试考虑下使用组合解决问题会不会更好。
 
-You might be wondering then, "when should I use inheritance?" It
-depends on your problem at hand, but this is a decent list of when inheritance
-makes more sense than composition:
+你可能有疑虑，什么时候应该使用继承？，这个取决于业务问题，这事一份不错的清单，说明组合比继承更有意义：
 
-1. Your inheritance represents an "is-a" relationship and not a "has-a"
-relationship (Human->Animal vs. User->UserDetails).
-2. You can reuse code from the base classes (Humans can move like all animals).
-3. You want to make global changes to derived classes by changing a base class.
-(Change the caloric expenditure of all animals when they move).
+1. 继承代表的是 ”是一个“ 的关系，而不是一个 ”有一个“ 的关系。（例如 帆船是一个船 VS 帆船有一个帆）
+2. 可以重用代码通过基础的类（帆船可以像船一样行驶在水上）
+3. 可以通过改变一个基础类，从而做到全局改变。（改变所有船的行驶速度）
 
 **反例：**
 
@@ -1320,24 +1312,21 @@ class Employee
 
 **[⬆ 返回顶部](#目录)**
 
-### Avoid fluent interfaces
+### 避免流式接口
 
-A [Fluent interface](https://en.wikipedia.org/wiki/Fluent_interface) is an object
-oriented API that aims to improve the readability of the source code by using
-[Method chaining](https://en.wikipedia.org/wiki/Method_chaining).
 
-While there can be some contexts, frequently builder objects, where this
-pattern reduces the verbosity of the code (for example the [PHPUnit Mock Builder](https://phpunit.de/manual/current/en/test-doubles.html)
-or the [Doctrine Query Builder](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/query-builder.html)),
-more often it comes at some costs:
 
-1. Breaks [Encapsulation](https://en.wikipedia.org/wiki/Encapsulation_%28object-oriented_programming%29).
-2. Breaks [Decorators](https://en.wikipedia.org/wiki/Decorator_pattern).
-3. Is harder to [mock](https://en.wikipedia.org/wiki/Mock_object) in a test suite.
-4. Makes diffs of commits harder to read.
+一个 [流式接口](https://baike.baidu.com/item/%E6%B5%81%E5%BC%8F%E6%8E%A5%E5%8F%A3) 是一个对象定向的API 目的是提高源码使用使用 [方法链](https://baike.baidu.com/item/%E6%96%B9%E6%B3%95%E9%93%BE) 的可读性。
 
-For more informations you can read the full [blog post](https://ocramius.github.io/blog/fluent-interfaces-are-evil/)
-on this topic written by [Marco Pivetta](https://github.com/Ocramius).
+可以在很多语境中使用，通常构用来建对象，这种方式减少了代码的赘余（例如 [PHPUnit Mock Builder](https://phpunit.de/manual/current/en/test-doubles.html) 或者 [Doctrine Query Builder](http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/query-builder.html))，更多时候需要付出一些代价：
+
+
+1. 破坏 [封装](https://baike.baidu.com/item/%E5%B0%81%E8%A3%85/13027517).
+2. 破坏 [装饰模式](https://baike.baidu.com/item/%E8%A3%85%E9%A5%B0%E6%A8%A1%E5%BC%8F).
+3. 测试中就更难 [模拟对象](https://baike.baidu.com/item/%E6%A8%A1%E6%8B%9F%E5%AF%B9%E8%B1%A1) 。
+4. 使得提交变更更难阅读.
+
+更多信息可以阅读 [Marco Pivetta](https://github.com/Ocramius) 的 [博客](https://ocramius.github.io/blog/fluent-interfaces-are-evil/)
 
 **反例：**
 
@@ -1424,19 +1413,19 @@ $car->dump();
 
 **[⬆ 返回顶部](#目录)**
 
-### Prefer final classes
+### final
 
-The `final` should be used whenever possible:
+`final` 应该被尽可能的使用:
 
-1. It prevents uncontrolled inheritance chain.
-2. It encourages [composition](#prefer-composition-over-inheritance).
-3. It encourages the [Single Responsibility Pattern](#single-responsibility-principle-srp).
-4. It encourages developers to use your public methods instead of extending the class to get access on protected ones.
-5. It allows you to change your code without any break of applications that use your class.
+1. 防止不受控制的继承链
+2. 鼓励使用 [组合](#组合而不是继承)
+3. 鼓励使用 [单一职责](#单一职责)
+4. 鼓励开发者使用 `public` 方法代替扩展类中使用 `protected`
+5. 允许改变代码而不会破坏使用该类的应用
 
-The only condition is that your class should implement an interface and no other public methods are defined.
+唯一的条件是类应该实现一个接口并且没有定义公共方法。
 
-For more informations you can read [the blog post](https://ocramius.github.io/blog/when-to-declare-classes-final/) on this topic written by [Marco Pivetta (Ocramius)](https://ocramius.github.io/).
+更多的信息可以阅读这篇 [Marco Pivetta (Ocramius)](https://ocramius.github.io/) 写的 [博客](https://ocramius.github.io/blog/when-to-declare-classes-final/) 。
 
 **反例：**
 
