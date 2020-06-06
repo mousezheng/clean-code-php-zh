@@ -1483,24 +1483,19 @@ final class Car implements Vehicle
 
 ## SOLID
 
-**SOLID** is the mnemonic acronym introduced by Michael Feathers for the first five principles named by Robert Martin, which meant five basic principles of object-oriented programming and design.
+**SQLID** 是 Michael Feathers 对 Robert Martin 提出的面向对象五大基本设计原则命名的缩写。
 
- * [S: Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
- * [O: Open/Closed Principle (OCP)](#openclosed-principle-ocp)
- * [L: Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
- * [I: Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
- * [D: Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
+ * [S: 单一职责原则 Single Responsibility Principle (SRP)](#单一职责原则)
+ * [O: 开闭原则 Open/Closed Principle (OCP)](#开闭原则)
+ * [L: 里氏代换原则 Liskov Substitution Principle (LSP)](#里氏代换原则)
+ * [I: 接口隔离原则 Interface Segregation Principle (ISP)](#接口隔离原则)
+ * [D: 依赖倒转原则 Dependency Inversion Principle (DIP)](#依赖倒转原则)
 
-### Single Responsibility Principle (SRP)
+### 单一职责原则
 
-As stated in Clean Code, "There should never be more than one reason for a class
-to change". It's tempting to jam-pack a class with a lot of functionality, like
-when you can only take one suitcase on your flight. The issue with this is
-that your class won't be conceptually cohesive and it will give it many reasons
-to change. Minimizing the amount of times you need to change a class is important.
-It's important because if too much functionality is in one class and you modify a piece of it,
-it can be difficult to understand how that will affect other dependent modules in
-your codebase.
+Clean Code 中这样说：”改变一个类的原因不应该有一个以上“。都喜欢给一个类里塞很多功能，
+就像坐飞机只能提一个行李箱于是把所有东西都塞进去。问题是这各类在概念上是不耦合的并且他将会因为各种原因而被改动
+将修改一个类的情况降到最小是很重要的。如果太多方法在一个类里改变其中一个，对于理解代码库中其他依赖将会很困难。
 
 **反例：**
 
@@ -1568,12 +1563,9 @@ class UserSettings
 
 **[⬆ 返回顶部](#目录)**
 
-### 开闭原则(OCP)
+### 开闭原则
 
-As stated by Bertrand Meyer, "software entities (classes, modules, functions,
-etc.) should be open for extension, but closed for modification." What does that
-mean though? This principle basically states that you should allow users to
-add new functionalities without changing existing code.
+Bertrand Meyer 这样说，”软件实体（类、模块、方法等）应该对扩展开放，但是对修改关闭。“什么意思呢？这个原则说明了，应该使用增加一个方法而不是修改代码
 
 **反例：**
 
@@ -1682,20 +1674,14 @@ class HttpRequester
 
 **[⬆ 返回顶部](#目录)**
 
-### Liskov Substitution Principle (LSP)
+### 里氏代换原则
 
-This is a scary term for a very simple concept. It's formally defined as "If S
-is a subtype of T, then objects of type T may be replaced with objects of type S
-(i.e., objects of type S may substitute objects of type T) without altering any
-of the desirable properties of that program (correctness, task performed,
-etc.)." That's an even scarier definition.
-
-The best explanation for this is if you have a parent class and a child class,
-then the base class and child class can be used interchangeably without getting
-incorrect results. This might still be confusing, so let's take a look at the
-classic Square-Rectangle example. Mathematically, a square is a rectangle, but
-if you model it using the "is-a" relationship via inheritance, you quickly
-get into trouble.
+这个看似复杂的术语是非常简单的。它正式的定义了作为 ”如果 S 是 T 的父类（或者父接口或者抽象），
+然后对象的类型是 T 可以被类型 S 的对象取代，而不修改项目中任何可取代属性（正确性，执行的任务等等）“ 
+这个好像看起来更复杂。
+ 
+最好的解释是  如果有一个父类和一个子类 然后基础类和子类可以互换不会造成错误的结果。这样解释仍然让人疑惑，
+让我们看一个 Square-Rectangle 的例子。数学上 一个正方形是一个长方形 但是如果模使用通过继承实现 ”是一个“ 的关系，将会陷入麻烦。
 
 **反例：**
 
@@ -1752,11 +1738,11 @@ foreach ($rectangles as $rectangle) {
 
 **正例：**
 
-The best way is separate the quadrangles and allocation of a more general subtype for both shapes.
+最好的方式是分离四边形并且分配多个抽象给两种图形。
 
-Despite the apparent similarity of the square and the rectangle, they are different.
-A square has much in common with a rhombus, and a rectangle with a parallelogram, but they are not subtype.
-A square, a rectangle, a rhombus and a parallelogram are separate shapes with their own properties, albeit similar.
+尽管正方形和长方形有很多相似的地方，但是他们都是不同的。
+正方形和菱形有很多相似点，长方形和平行四边形也是，但是他们都不是抽象。
+正方形、矩形、菱形和平行四边形都具有各自的属性，尽管很相似。
 
 ```php
 interface Shape
