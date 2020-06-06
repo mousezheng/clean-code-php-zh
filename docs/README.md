@@ -30,9 +30,9 @@
      * [避免类型检查(上)](#避免类型检查(上))
      * [避免类型检查(下)](#避免类型检查(下))
      * [删除无用代码](#删除无用代码)
-  5. [Objects and Data Structures](#objects-and-data-structures)
-     * [Use object encapsulation](#use-object-encapsulation)
-     * [Make objects have private/protected members](#make-objects-have-privateprotected-members)
+  5. [对象和数据结构](#对象和数据结构)
+     * [封装对象](#封装对象)
+     * [private/protected](#privateprotected)
   6. [Classes](#classes)
      * [Prefer composition over inheritance](#prefer-composition-over-inheritance)
      * [Avoid fluent interfaces](#avoid-fluent-interfaces)
@@ -1099,23 +1099,20 @@ inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 **[⬆ 返回顶部](#目录)**
 
 
-## Objects and Data Structures
+## 对象和数据结构
 
-### Use object encapsulation
+### 封装对象
 
-In PHP you can set `public`, `protected` and `private` keywords for methods.
-Using it, you can control properties modification on an object.
+在 PHP 中，可以给方法设置 `public`, `protected` 和 `private` 关键字。使用它可以控制一个对象属性的修改。
 
-* When you want to do more beyond getting an object property, you don't have
-to look up and change every accessor in your codebase.
-* Makes adding validation simple when doing a `set`.
-* Encapsulates the internal representation.
-* Easy to add logging and error handling when getting and setting.
-* Inheriting this class, you can override default functionality.
-* You can lazy load your object's properties, let's say getting it from a
-server.
+* 除了获取对象属性还想做其他操作时，可以不去查看并且修改代码库中每一个存取器
+* 在 `set` 中做简单验证
+* 更好的封装内部表现
+* 更简单的在 `getting` 和 `setting` 中添加日志和错误控制
+* 这个类内部，可以覆盖默认方法
+* 可以懒加载对象的属性，从服务器获取
 
-Additionally, this is part of [Open/Closed](#openclosed-principle-ocp) principle.
+另外，这里是一部分原理 [开闭原则](#开闭原则(OCP))
 
 **反例：**
 
@@ -1174,15 +1171,15 @@ $balance = $bankAccount->getBalance();
 
 **[⬆ 返回顶部](#目录)**
 
-### Make objects have private/protected members
+### private/protected
 
-* `public` methods and properties are most dangerous for changes, because some outside code may easily rely on them and you can't control what code relies on them. **Modifications in class are dangerous for all users of class.**
-* `protected` modifier are as dangerous as public, because they are available in scope of any child class. This effectively means that difference between public and protected is only in access mechanism, but encapsulation guarantee remains the same. **Modifications in class are dangerous for all descendant classes.**
-* `private` modifier guarantees that code is **dangerous to modify only in boundaries of single class** (you are safe for modifications and you won't have [Jenga effect](http://www.urbandictionary.com/define.php?term=Jengaphobia&defid=2494196)).
+* `public` 方法和属性是会造成更多的修改危险。因为外部的代码很容易依赖他们并且无法控制。**修改类会影响到所有这个类的使用者**
+* `protected` 修饰符和 `public` 一样危险，因为他允许在子类范围内可用。`public` 与 `protected` 的不同仅仅在访问机制上，但是封装保证是一样的。**修改类会影响到所有继承类。**
+* `private` 修饰符保证 **修改仅仅会影响到一个类**
 
-Therefore, use `private` by default and `public/protected` when you need to provide access for external classes.
+因此，默认使用 `private` ，当需要提供外部类使用时用`public/protected`。
 
-For more informations you can read the [blog post](http://fabien.potencier.org/pragmatism-over-theory-protected-vs-private.html) on this topic written by [Fabien Potencier](https://github.com/fabpot).
+更多的信息可以阅读出自 [Fabien Potencier](https://github.com/fabpot) 的 [Protected vs Private](http://fabien.potencier.org/pragmatism-over-theory-protected-vs-private.html).
 
 **反例：**
 
@@ -1582,7 +1579,7 @@ class UserSettings
 
 **[⬆ 返回顶部](#目录)**
 
-### Open/Closed Principle (OCP)
+### 开闭原则(OCP)
 
 As stated by Bertrand Meyer, "software entities (classes, modules, functions,
 etc.) should be open for extension, but closed for modification." What does that
