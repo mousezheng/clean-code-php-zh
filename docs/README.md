@@ -29,7 +29,7 @@
      * [避免条件](#避免条件)
      * [避免类型检查(上)](#避免类型检查(上))
      * [避免类型检查(下)](#避免类型检查(下))
-     * [Remove dead code](#remove-dead-code)
+     * [删除无用代码](#删除无用代码)
   5. [Objects and Data Structures](#objects-and-data-structures)
      * [Use object encapsulation](#use-object-encapsulation)
      * [Make objects have private/protected members](#make-objects-have-privateprotected-members)
@@ -1063,11 +1063,9 @@ function combine(int $val1, int $val2): int
 
 **[⬆ 返回顶部](#目录)**
 
-### Remove dead code
+### 删除无用代码
 
-Dead code is just as bad as duplicate code. There's no reason to keep it in
-your codebase. If it's not being called, get rid of it! It will still be safe
-in your version history if you still need it.
+无用代码仅仅是重复代码，没有理由再将它维护在代码库中。如果不用关心它，那就清理掉。如果仍然需要，依旧可以从历史版本中获取。
 
 **反例：**
 
