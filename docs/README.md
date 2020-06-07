@@ -38,13 +38,13 @@
      * [避免流式接口](#避免流式接口)
      * [Prefer final classes](#prefer-final-classes)
   7. [SOLID](#solid)
-     * [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
-     * [Open/Closed Principle (OCP)](#openclosed-principle-ocp)
-     * [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
-     * [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
-     * [Dependency Inversion Principle (DIP)](#dependency-inversion-principle-dip)
-  8. [Don’t repeat yourself (DRY)](#dont-repeat-yourself-dry)
-  9. [Translations](#translations)
+     * [单一职责原则 Single Responsibility Principle (SRP)](#单一职责原则)
+     * [开闭原则 Open/Closed Principle (OCP)](#开闭原则)
+     * [里氏代换原则 Liskov Substitution Principle (LSP)](#里氏代换原则)
+     * [接口隔离原则 Interface Segregation Principle (ISP)](#接口隔离原则)
+     * [依赖倒转原则 Dependency Inversion Principle (DIP)](#依赖倒转原则)
+  8. [不要重复代码 (DRY)](#不要重复代码)
+  9. [翻译](#翻译)
 
 ## 简介
 
@@ -1796,15 +1796,11 @@ foreach ($shapes as $shape) {
 
 **[⬆ 返回顶部](#目录)**
 
-### Interface Segregation Principle (ISP)
+### 接口隔离原则
 
-ISP states that "Clients should not be forced to depend upon interfaces that
-they do not use."
+接口隔离原则是客户端不需要被迫依赖用不到的接口。
 
-A good example to look at that demonstrates this principle is for
-classes that require large settings objects. Not requiring clients to set up
-huge amounts of options is beneficial, because most of the time they won't need
-all of the settings. Making them optional helps prevent having a "fat interface".
+一个很好的例子证明这个原理，需要设置很大的对象时，最好不让客户端设置大量选项，因为大多数情况下，客户端不需要所有的设置。将其设置为可选，有利于防止”胖接口“
 
 **反例：**
 
@@ -1887,20 +1883,16 @@ class RobotEmployee implements Workable
 
 **[⬆ 返回顶部](#目录)**
 
-### Dependency Inversion Principle (DIP)
+### 依赖倒转原则
 
-This principle states two essential things:
-1. High-level modules should not depend on low-level modules. Both should
-depend on abstractions.
-2. Abstractions should not depend upon details. Details should depend on
-abstractions.
+这个原则有两件重要的事：
 
-This can be hard to understand at first, but if you've worked with PHP frameworks (like Symfony), you've seen an implementation of this principle in the form of Dependency
-Injection (DI). While they are not identical concepts, DIP keeps high-level
-modules from knowing the details of its low-level modules and setting them up.
-It can accomplish this through DI. A huge benefit of this is that it reduces
-the coupling between modules. Coupling is a very bad development pattern because
-it makes your code hard to refactor.
+1.  ”高级模块“ 不应该依赖 ”低级模块“。都应该依赖于抽象。
+2.  抽象不应该依赖细节，细节应该依赖于抽象。
+
+一开始有点难以理解，如果使用 PHP 框架（例如 Symfony）,你已经看过这个原理的实现-依赖注入（DI）。
+虽然他们概念不一致，但是依赖倒转保证 ”高级模块“ 不了解 "低级模块" 的细节并设置他们。他们可以通过依赖注入完成
+代码耦合非常不利于重构是一个坏的开发模式。
 
 **反例：**
 
@@ -2060,9 +2052,9 @@ function showList(array $employees): void
 }
 ```
 
-**Very good:**
+**正例:**
 
-It is better to use a compact version of the code.
+使用简洁的代码会更好。
 
 ```php
 function showList(array $employees): void
@@ -2079,9 +2071,9 @@ function showList(array $employees): void
 
 **[⬆ 返回顶部](#目录)**
 
-## Translations
+## 翻译
 
-This is also available in other languages:
+以下是其他语言的版本:
 
 * :cn: **Chinese:**
    * [php-cpm/clean-code-php](https://github.com/php-cpm/clean-code-php)
