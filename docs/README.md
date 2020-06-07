@@ -1971,30 +1971,20 @@ class Manager
 
 **[⬆ 返回顶部](#目录)**
 
-## Don’t repeat yourself (DRY)
+## 避免重复代码
 
-Try to observe the [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) principle.
+查看相关 [DRY](https://verraes.net/2014/08/dry-is-about-knowledge/) 原则.
 
-Do your absolute best to avoid duplicate code. Duplicate code is bad because
-it means that there's more than one place to alter something if you need to
-change some logic.
+尽可能避免重复代码。重复代码是不好的因为如果需要改变一些逻辑就需要改变很多地方。
 
-Imagine if you run a restaurant and you keep track of your inventory: all your
-tomatoes, onions, garlic, spices, etc. If you have multiple lists that
-you keep this on, then all have to be updated when you serve a dish with
-tomatoes in them. If you only have one list, there's only one place to update!
+想象 如果你经营一家餐厅并且持续跟踪库存：所有的番茄、洋葱，大蒜，香料等。如果有多个列表需要跟踪，当在盘子上放个西红柿，需要更新他们所有。如果只有一个列表也需要更新一个。
 
-Often you have duplicate code because you have two or more slightly
-different things, that share a lot in common, but their differences force you
-to have two or more separate functions that do much of the same things. Removing
-duplicate code means creating an abstraction that can handle this set of different
-things with just one function/module/class.
+通常重复的代码，因为两个或多个稍有不同的事物，它们有很多共同点，但是它们之间的差异迫使需要两个或多个独立的函数来执行许多相同的事情
+删除重复代码 创建一个可以执行这些不同的事仅仅通过一个方法、模型或者类。
 
-Getting the abstraction right is critical, that's why you should follow the
-SOLID principles laid out in the [Classes](#classes) section. Bad abstractions can be
-worse than duplicate code, so be careful! Having said this, if you can make
-a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
-updating multiple places any time you want to change one thing.
+确保正确的抽象是至关重要的，这就是为什么您应该遵循 [类](＃类) 中部分中列出的 SOLID 原理的原因。
+错误的抽象可能比重复的代码更糟糕，因此请小心！ 话虽如此，如果您可以做一个好的抽象，那就去做吧！
+不要重复自己，否则您会发现自己想更改一件事情时会更新多个位置
 
 **反例：**
 
