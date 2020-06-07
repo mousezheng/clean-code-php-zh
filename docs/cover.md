@@ -7,5 +7,5 @@
 - PHP 太灵活太自由了需要有一些约束和规范
 - 本篇翻译自 [原篇链接查看](https://github.com/jupeter/clean-code-php)
 
-[GitHub](https://github.com/mousezheng/smileZheng)
+[GitHub](https://github.com/mousezheng/clean-code-php-zh)
 [Get Started](#目录)
