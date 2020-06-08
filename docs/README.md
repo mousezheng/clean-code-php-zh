@@ -194,7 +194,7 @@ saveCityZipCode($matches['city'], $matches['zipCode']);
 
 ### 避免嵌套中提前返回(上)
 
-许多 if-else 语句可以使得代码很难再追加，明确会比隐含更理想。
+if-else 语句多层嵌套使得代码很难再追加，简洁明了会更好。
 
 **反例：**
 
@@ -285,7 +285,7 @@ function fibonacci(int $n): int
 
 ### 避免奇怪的映射
 
-不要高估读者能够理准确理解代码的含义。明确会比隐含更理想。
+避免使读者疑惑或产生歧义。简洁明了会更好。
 
 **反例：**
 
@@ -299,7 +299,7 @@ for ($i = 0; $i < count($l); $i++) {
     // ...
     // ...
     // ...
-    // Wait, what is `$li` for again?
+    // 怎么又是 $li?
     dispatch($li);
 }
 ```
@@ -353,7 +353,7 @@ class Car
 
 **[⬆ 返回顶部](#目录)**
 
-### 默认参数避
+### 默认参数
 
 **反例:**
 
@@ -368,8 +368,7 @@ function createMicrobrewery($breweryName = 'Hipster Brew Co.'): void
 
 **反例:**
 
-
-这种写法比更好理解，并且可以更好的控制变量。
+这种写法好理解，并且可以更好的控制变量。
 
 ```php
 function createMicrobrewery($name = null): void
@@ -423,7 +422,7 @@ $a = '42';
 $b = 42;
 
 if ($a !== $b) {
-    // The expression is verified
+    // 验证通过
 }
 ```
 
