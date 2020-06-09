@@ -1,4 +1,4 @@
-﻿# 简介
+# 简介
 
 PHP版本的软件工程原则，改编自 C.Martin 纂写的
 [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)，本篇不是风格指南，而是用于提升 PHP 软件可读性、可复用性以及可重构性。

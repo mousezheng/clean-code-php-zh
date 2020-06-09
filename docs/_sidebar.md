@@ -1,3 +1,12 @@
-<!-- docs/_sidebar.md -->
-* [中文版](README.md)
-* [英文版](README_EN.md "英文版原篇")
+# clean-code-php
+
+<!-- * [目录](README.md) -->
+* [简介](introduction.md)
+* [变量](variables.md)
+* [比较](comparison.md)
+* [方法](functions.md)
+* [对象和数据结构](object.md)
+* [类](classes.md)
+* [SOLID](solid.md)
+* [不要重复代码 (DRY)](dry.md)
+* [翻译](translations.md)
