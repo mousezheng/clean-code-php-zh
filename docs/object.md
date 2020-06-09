@@ -69,7 +69,7 @@ $bankAccount->withdraw($shoesPrice);
 $balance = $bankAccount->getBalance();
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## private/protected
 
@@ -120,4 +120,4 @@ $employee = new Employee('John Doe');
 echo 'Employee name: '.$employee->getName(); // Employee name: John Doe
 ```
 
-**[⬆ 返回顶部](#目录)**
+

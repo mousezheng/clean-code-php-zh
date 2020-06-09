@@ -23,4 +23,4 @@
 * :tr: **Turkish:**
   * [anilozmen/clean-code-php](https://github.com/anilozmen/clean-code-php)
 
-**[⬆ 返回顶部](#目录)**
+

@@ -87,7 +87,7 @@ class Employee
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免流式接口
 
@@ -185,7 +185,7 @@ $car->setModel('F-150');
 $car->dump();
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## final
 
@@ -253,4 +253,4 @@ final class Car implements Vehicle
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+

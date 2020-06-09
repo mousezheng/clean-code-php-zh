@@ -79,7 +79,7 @@ class UserSettings
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 开闭原则
 
@@ -190,7 +190,7 @@ class HttpRequester
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 里氏代换原则
 
@@ -312,7 +312,7 @@ foreach ($shapes as $shape) {
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 接口隔离原则
 
@@ -399,7 +399,7 @@ class RobotEmployee implements Workable
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 依赖倒转原则
 
@@ -487,4 +487,4 @@ class Manager
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+

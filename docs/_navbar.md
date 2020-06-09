@@ -1,3 +1,3 @@
-- Translations
+- 语言
   - [:uk: English](/en/README)
   - [:cn: 中文](/)

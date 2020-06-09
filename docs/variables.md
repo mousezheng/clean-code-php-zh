@@ -14,7 +14,7 @@ $ymdstr = $moment->format('y-m-d');
 $currentDate = $moment->format('y-m-d');
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 相同变量相同含义
 
@@ -35,7 +35,7 @@ getUserProfile();
 getUser();
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 可理解的命名(上)
 
@@ -94,7 +94,7 @@ if ($user->access & User::ACCESS_UPDATE) {
 $user->access ^= User::ACCESS_CREATE;
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 有含义的命名
 
@@ -133,7 +133,7 @@ preg_match($cityZipCodeRegex, $address, $matches);
 saveCityZipCode($matches['city'], $matches['zipCode']);
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免嵌套中提前返回(上)
 
@@ -182,7 +182,7 @@ function isShopOpen(string $day): bool
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免嵌套中提前返回(下)
 
@@ -224,7 +224,7 @@ function fibonacci(int $n): int
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免奇怪的映射
 
@@ -262,7 +262,7 @@ foreach ($locations as $location) {
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 不必要的上下文
 
@@ -294,7 +294,7 @@ class Car
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 默认参数
 
@@ -332,4 +332,4 @@ function createMicrobrewery(string $breweryName = 'Hipster Brew Co.'): void
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+

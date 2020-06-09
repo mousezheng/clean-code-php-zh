@@ -83,7 +83,7 @@ class Questionnaire
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 方法见名知意
 
@@ -125,7 +125,7 @@ $message = new Email(...);
 $message->send();
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 只做一件事
 
@@ -261,7 +261,7 @@ class BetterPHPAlternative
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 不使用标志作参数
 
@@ -294,7 +294,7 @@ function createTempFile(string $name): void
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免副作用
 
@@ -336,7 +336,7 @@ var_dump($name); // 'Ryan McDermott';
 var_dump($newName); // ['Ryan', 'McDermott'];
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 不用全局函数
 
@@ -382,7 +382,7 @@ $configuration = new Configuration([
 
 并且必须使用 `Configuration` 的实例到应用中。
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 不使用单例模式
 
@@ -444,7 +444,7 @@ $connection = new DBConnection($dsn);
 
 在应用中使用 `DBConnection`
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 封装条件
 
@@ -464,7 +464,7 @@ if ($article->isPublished()) {
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免非条件
 
@@ -495,7 +495,7 @@ if (isDOMNodePresent($node)) {
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免条件
 
@@ -569,7 +569,7 @@ class Cessna implements Airplane
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免类型检查(上)
 
@@ -597,7 +597,7 @@ function travelToTexas(Vehicle $vehicle): void
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 避免类型检查(下)
 
@@ -625,7 +625,7 @@ function combine(int $val1, int $val2): int
 }
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
 ## 删除无用代码
 
@@ -660,5 +660,5 @@ $request = requestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
 
-**[⬆ 返回顶部](#目录)**
+
 
