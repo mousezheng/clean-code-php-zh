@@ -1,4 +1,3 @@
-
 # 方法
 
 ## 方法参数少于两个
@@ -83,8 +82,6 @@ class Questionnaire
 }
 ```
 
-
-
 ## 方法见名知意
 
 方法应当尽可能见明知意，告诉读者其主要用途。
@@ -124,8 +121,6 @@ $message = new Email(...);
 // 清楚明白的做法
 $message->send();
 ```
-
-
 
 ## 只做一件事
 
@@ -261,8 +256,6 @@ class BetterPHPAlternative
 }
 ```
 
-
-
 ## 不使用标志作参数
 
 标志会让使用者觉得方法做了不止一件事，方法应该做一件事。如果代码是通过boolean做不同的操作，那么就需要做拆分。
@@ -293,8 +286,6 @@ function createTempFile(string $name): void
     touch('./temp/'.$name);
 }
 ```
-
-
 
 ## 避免副作用
 
@@ -335,8 +326,6 @@ $newName = splitIntoFirstAndLastName($name);
 var_dump($name); // 'Ryan McDermott';
 var_dump($newName); // ['Ryan', 'McDermott'];
 ```
-
-
 
 ## 不用全局函数
 
@@ -381,8 +370,6 @@ $configuration = new Configuration([
 ```
 
 并且必须使用 `Configuration` 的实例到应用中。
-
-
 
 ## 不使用单例模式
 
@@ -444,8 +431,6 @@ $connection = new DBConnection($dsn);
 
 在应用中使用 `DBConnection`
 
-
-
 ## 封装条件
 
 **反例：**
@@ -463,8 +448,6 @@ if ($article->isPublished()) {
     // ...
 }
 ```
-
-
 
 ## 避免非条件
 
@@ -494,8 +477,6 @@ if (isDOMNodePresent($node)) {
     // ...
 }
 ```
-
-
 
 ## 避免条件
 
@@ -565,8 +546,6 @@ class Cessna implements Airplane
 }
 ```
 
-
-
 ## 避免类型检查(上)
 
 PHP 是无类型语言，意思就是一个变量可以作为任何类型。类型不明确会对使用造成不确定性，*在代码中检查类型，然后针对不同类型做不同的调用*？当然是不妥的。可以考虑使用一致 APIS。
@@ -592,8 +571,6 @@ function travelToTexas(Vehicle $vehicle): void
     $vehicle->travelTo(new Location('texas'));
 }
 ```
-
-
 
 ## 避免类型检查(下)
 
@@ -655,6 +632,3 @@ function requestModule(string $url): void
 $request = requestModule($requestUrl);
 inventoryTracker('apples', $request, 'www.inventory-awesome.io');
 ```
-
-
-
