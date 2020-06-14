@@ -569,7 +569,7 @@ class Cessna implements Airplane
 
 ## 避免类型检查(上)
 
-PHP 是无类型语言，意思就是一个变量可以作为任何类型。有时候会因为这个灵活而困扰，让人很希望在方法中做类型检查。这里有很多方法去避免，第一件事是去考虑一致 APIs。
+PHP 是无类型语言，意思就是一个变量可以作为任何类型。类型不明确会对使用造成不确定性，*在代码中检查类型，然后针对不同类型做不同的调用*？当然是不妥的。可以考虑使用一致 APIS。
 
 **反例：**
 
@@ -597,7 +597,7 @@ function travelToTexas(Vehicle $vehicle): void
 
 ## 避免类型检查(下)
 
-如果你使用基础的原始的数据例如 string、integer 或者 array 等，即使使用 PHP 7+ 并且没使用多态，仍然需要做类型检查。可以考虑 [类型声明](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) 或者严格的模式。它在标准 PHP 基础上提供了静态类型。手动检查类型的话可以做到 “类型安全”，但是这样会做很多的是，造成代码可读性差。保持 PHP 简洁干净，写好的测试，并且做好代码检查。除此以外，尽可能严格的使用 PHP 类型生命或者严格模式。
+如果你使用基础的原始的数据例如 string、integer 或者 array 等，即使使用 PHP 7+ 并且没使用多态，仍然需要做类型检查。可以考虑 [类型声明](http://php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) 或者严格的模式。类型声明在标准 PHP 基础上提供了静态类型。手动检查类型的话可以做到 “类型安全”，但是这样会做很多不必要的事，造成代码可读性差。尽可能保持 PHP 简洁干净，写好的测试，并且做好代码检查；尽可能严格的使用 PHP 类型声明或者严格模式。
 
 **反例：**
 
