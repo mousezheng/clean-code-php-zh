@@ -7,4 +7,4 @@
 - [类](classes.md)
 - [SOLID](solid.md)
 - [不要重复代码 (DRY)](dry.md)
-- [翻译](translations.md)
+<!-- - [翻译](translations.md) -->
